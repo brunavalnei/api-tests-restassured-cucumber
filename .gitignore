@@ -1,0 +1,20 @@
+# Maven / Build
+target/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+
+# Allure
+allure-results/
+allure-report/
