@@ -93,7 +93,7 @@ Projeto estruturado visando boas práticas de mercado, com uso de BDD para facil
 
 ## 📌 Como clonar o projeto
 
-git clone [https://github.com/SEU-USUARIO/api-tests-restassured-cucumber.git](https://github.com/SEU-USUARIO/api-tests-restassured-cucumber.git)
+git clone https://github.com/brunavalnei/api-tests-restassured-cucumber.git
 
 ## ⭐ Contribuição
 
