@@ -79,17 +79,27 @@ docker build -t api-tests .
 
 ---
 
-### ▶️ Executar testes e gerar relatório
+### ▶️ Executar testes (cria o container)
 
 ```bash
-docker run -v ${PWD}/target:/app/target api-tests
+docker run --name api-tests-container api-tests
 ```
 
-> 💡 No Windows (Prompt de Comando), use:
->
-> ```bash
-> docker run -v %cd%/target:/app/target api-tests
-> ```
+---
+
+### 📦 Copiar relatório gerado para a máquina
+
+```bash
+docker cp api-tests-container:/app/target ./target
+```
+
+---
+
+### 🧹 Remover container (opcional, mas recomendado)
+
+```bash
+docker rm api-tests-container
+```
 
 ---
 
@@ -120,7 +130,8 @@ http://localhost:8080
 ## 💡 Observações
 
 * O container executa os testes (`mvn clean test`) e gera o relatório (`mvn allure:report`)
-* O volume (`-v`) salva o relatório na máquina local
+* O relatório é gerado dentro do container e copiado para a máquina com `docker cp`
+* Essa abordagem evita problemas de volume no Windows (principalmente com drive `D:`)
 * Todos os artefatos ficam na pasta `target/`
 * Não é necessário instalar o Allure CLI
 
@@ -141,7 +152,6 @@ COPY src ./src
 
 CMD ["sh", "-c", "mvn clean test && mvn allure:report"]
 ```
-
 
 ## 💡 Observações
 
