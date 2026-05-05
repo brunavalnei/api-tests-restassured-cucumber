@@ -69,23 +69,79 @@ scoop install allure
 mvn clean test  
 allure serve target/allure-results
 
-## 🧠 Conceitos aplicados
+## 🐳 Executando com Docker
 
-- BDD com Cucumber
-- Testes de API com Rest Assured
-- Validação de status code
-- Validação de response body
-- Estrutura organizada de testes
-- Integração com Allure Report
+### 🔧 Build da imagem
 
-## 🚀 Próximos passos
+```bash
+docker build -t api-tests .
+```
 
-- Implementar PUT (atualização)
-- Implementar DELETE
-- Validação avançada de payload
-- Massa de dados dinâmica
-- Integração com CI/CD (GitHub Actions)
-- Parametrização de ambiente
+---
+
+### ▶️ Executar testes e gerar relatório
+
+```bash
+docker run -v ${PWD}/target:/app/target api-tests
+```
+
+> 💡 No Windows (Prompt de Comando), use:
+>
+> ```bash
+> docker run -v %cd%/target:/app/target api-tests
+> ```
+
+---
+
+### 📊 Local do relatório gerado
+
+```text
+target/site/allure-maven-plugin/index.html
+```
+
+---
+
+### 🌐 Visualizar o relatório corretamente
+
+> ⚠️ Evite abrir o HTML diretamente (pode ficar em loading infinito)
+
+```bash
+npx http-server target/site/allure-maven-plugin
+```
+
+Acesse no navegador:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 💡 Observações
+
+* O container executa os testes (`mvn clean test`) e gera o relatório (`mvn allure:report`)
+* O volume (`-v`) salva o relatório na máquina local
+* Todos os artefatos ficam na pasta `target/`
+* Não é necessário instalar o Allure CLI
+
+---
+
+## 🐳 Dockerfile utilizado
+
+```dockerfile
+FROM maven:3.9.9-eclipse-temurin-17
+
+WORKDIR /app
+
+COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
+COPY src ./src
+
+CMD ["sh", "-c", "mvn clean test && mvn allure:report"]
+```
+
 
 ## 💡 Observações
 
