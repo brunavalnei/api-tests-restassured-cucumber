@@ -152,6 +152,46 @@ COPY src ./src
 
 CMD ["sh", "-c", "mvn clean test && mvn allure:report"]
 ```
+## ⚙️ Executando via GitHub Actions
+
+O projeto possui uma pipeline no GitHub Actions que executa os testes automaticamente utilizando Docker e gera o relatório Allure como artefato.
+
+### 🚀 Quando a pipeline é executada
+
+A pipeline é executada em dois cenários:
+
+- Ao fazer push na branch `main`
+- Manualmente pela aba `Actions`, usando a opção `Run workflow`
+
+### 🔄 Fluxo da pipeline
+
+A esteira realiza os seguintes passos:
+
+1. Baixa o código do repositório
+2. Realiza o build da imagem Docker
+3. Executa os testes dentro do container
+4. Gera o relatório Allure
+5. Copia os artefatos gerados
+6. Disponibiliza o relatório como artifact no GitHub Actions
+
+### 📦 Baixar o relatório gerado
+
+Após a execução da pipeline:
+
+1. Acesse a aba `Actions` no GitHub
+2. Abra a execução da pipeline
+3. Vá até a seção `Artifacts`
+4. Baixe o arquivo `allure-report`
+5. Extraia o `.zip` em uma pasta local
+
+### 🌐 Visualizar o relatório Allure
+
+> ⚠️ Não é recomendado abrir o `index.html` diretamente, pois o relatório pode ficar carregando indefinidamente.
+
+Após extrair o artifact, abra o terminal dentro da pasta onde está o `index.html` e execute:
+
+```bash
+npx http-server .
 
 ## 💡 Observações
 
