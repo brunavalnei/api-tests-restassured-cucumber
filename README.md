@@ -188,10 +188,12 @@ Após a execução da pipeline:
 
 > ⚠️ Não é recomendado abrir o `index.html` diretamente, pois o relatório pode ficar carregando indefinidamente.
 
+````markdown
 Após extrair o artifact, abra o terminal dentro da pasta onde está o `index.html` e execute:
 
 ```bash
 npx http-server .
+````
 
 ## 💡 Observações
 
@@ -199,10 +201,14 @@ Projeto estruturado visando boas práticas de mercado, com uso de BDD para facil
 
 ## 📌 Como clonar o projeto
 
+```bash
 git clone https://github.com/brunavalnei/api-tests-restassured-cucumber.git
+```
 
 ## ⭐ Contribuição
 
 Este projeto faz parte de estudos e evolução profissional na área de Qualidade de Software.
 
- 
+```
+
+
