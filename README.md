@@ -209,6 +209,3 @@ git clone https://github.com/brunavalnei/api-tests-restassured-cucumber.git
 
 Este projeto faz parte de estudos e evolução profissional na área de Qualidade de Software.
 
-```
-
-
