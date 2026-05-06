@@ -22,7 +22,12 @@ jobs:
         run: docker rm -f api-tests-container || true
 
       - name: Rodar testes no container
-        run: docker run --name api-tests-container api-tests
+        run: |
+          docker run --name api-tests-container \
+            -e GRAFANA_LOKI_URL="${{ secrets.GRAFANA_LOKI_URL }}" \
+            -e GRAFANA_USER="${{ secrets.GRAFANA_USER }}" \
+            -e GRAFANA_TOKEN="${{ secrets.GRAFANA_TOKEN }}" \
+            api-tests
 
       - name: Copiar relatório Allure do container
         if: always()

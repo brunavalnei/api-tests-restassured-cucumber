@@ -1,6 +1,36 @@
 # 🧪 API Tests - Rest Assured + Cucumber + Allure
 
-Projeto de automação de testes de API utilizando Rest Assured, Cucumber (BDD) e Allure Report, com foco em cenários reais de validação de serviços REST.
+```
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Maven](https://img.shields.io/badge/Maven-3.9-orange)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-black)
+![Observability](https://img.shields.io/badge/Grafana-Loki-yellow)
+```
+--- 
+
+Projeto de automação de testes de API com abordagem moderna de qualidade, integrando:
+
+- Testes automatizados (Rest Assured + Cucumber)
+- Pipeline CI/CD com GitHub Actions
+- Relatórios com Allure
+- Observabilidade em tempo real com Grafana (Loki)
+
+Simula um fluxo real de engenharia de qualidade adotado em ambientes corporativos, com foco em confiabilidade, automação e observabilidade.
+
+## 🚀 Diferenciais do Projeto
+
+- Integração de testes automatizados com observabilidade (Grafana Loki)
+- Execução automatizada via CI/CD (GitHub Actions)
+- Monitoramento de falhas em tempo real
+- Estrutura baseada em boas práticas de mercado (BDD + Clean Code)
+
+## ⚠️ Testes com Cenários de Falha
+
+O projeto contempla cenários de sucesso e falha, permitindo validar:
+
+- Comportamento da API em respostas inesperadas
+- Monitoramento de falhas no Grafana
+- Visualização de taxa de erro em tempo real
 
 ## 👩‍💻 Autor
 
@@ -54,7 +84,11 @@ API utilizada: [https://jsonplaceholder.typicode.com](https://jsonplaceholder.ty
 
 ## ▶️ Como executar os testes
 
-No terminal:mvn clean test
+No terminal:
+
+```bash
+mvn clean test
+```
 
 ## 📊 Allure Report
 
@@ -66,8 +100,10 @@ scoop install allure
 
 ### ▶️ Gerar e visualizar o relatório
 
+```bash
 mvn clean test  
 allure serve target/allure-results
+```
 
 ## 🐳 Executando com Docker
 
@@ -188,16 +224,122 @@ Após a execução da pipeline:
 
 > ⚠️ Não é recomendado abrir o `index.html` diretamente, pois o relatório pode ficar carregando indefinidamente.
 
-````markdown
 Após extrair o artifact, abra o terminal dentro da pasta onde está o `index.html` e execute:
 
 ```bash
 npx http-server .
-````
+```
 
-## 💡 Observações
+## 📊 Observabilidade de Testes com Grafana (Loki)
 
-Projeto estruturado visando boas práticas de mercado, com uso de BDD para facilitar entendimento dos cenários e preparado para evolução em ambientes corporativos.
+Este projeto conta com uma camada de observabilidade que permite monitorar a execução dos testes automatizados em tempo real utilizando Grafana (Loki).
+
+---
+
+### 🎯 Objetivo
+
+Fornecer visibilidade sobre a qualidade e comportamento dos testes automatizados, permitindo análise de:
+
+* Execuções realizadas
+* Taxa de sucesso vs falha
+* Tempo de execução dos cenários
+* Histórico de execuções ao longo do tempo
+
+---
+
+### ⚙️ Como funciona
+
+Durante a execução dos testes:
+
+* Cada cenário executado envia uma métrica para o Grafana Loki
+* As informações incluem:
+
+  * Nome do cenário
+  * Status (`passed` ou `failed`)
+  * Tempo de execução (ms)
+
+Exemplo de log enviado:
+
+```text
+cenario='Buscar usuarios com sucesso' status='passed' duracaoMs=2346
+```
+---
+
+### 📊 Dashboard de Observabilidade
+
+![Dashboard Grafana](./docs/dashboard.png)
+
+---
+
+### 🚀 Execução com envio de métricas
+
+Para rodar os testes com envio de dados para o Grafana:
+
+```bash
+docker run --name api-tests-container \
+  -e GRAFANA_LOKI_URL="https://SEU_ENDPOINT/loki/api/v1/push" \
+  -e GRAFANA_USER="SEU_USER" \
+  -e GRAFANA_TOKEN="SEU_TOKEN" \
+  api-tests
+```
+
+---
+
+### 📊 Dashboard no Grafana
+
+O dashboard foi configurado para apresentar:
+
+* 📈 Execuções ao longo do tempo
+* 🟢 Testes aprovados vs 🔴 reprovados
+* 📊 Percentual de sucesso
+* ⏱️ Tempo médio de execução
+
+---
+
+### 🔍 Consulta de logs (Loki)
+
+Exemplo de query utilizada:
+
+```logql
+{job="api-tests-restassured-cucumber"}
+```
+
+Para análise por status:
+
+```logql
+sum by (status) (
+  count_over_time({job="api-tests-restassured-cucumber"}[50m])
+)
+```
+
+---
+
+### 💡 Benefícios
+
+* Monitoramento em tempo real da qualidade dos testes
+* Identificação rápida de falhas
+* Histórico de execução para análise de estabilidade
+* Integração com pipeline CI/CD
+
+---
+
+### 🧠 Conceitos aplicados
+
+* Observabilidade aplicada a testes automatizados
+* Integração com Grafana Loki
+* Métricas baseadas em logs
+* Monitoramento contínuo via pipeline
+
+---
+
+## 📬 Contato
+
+Caso queira trocar ideias sobre testes, automação ou observabilidade:
+
+- LinkedIn: https://www.linkedin.com/in/bruna-valnei-1b8b8927/
+- GitHub: https://github.com/brunavalnei
+
+---
 
 ## 📌 Como clonar o projeto
 
